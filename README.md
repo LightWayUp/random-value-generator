@@ -1,4 +1,4 @@
-# random-value-generator
+# [random-value-generator](https://www.npmjs.com/package/random-value-generator)
 This branch is for GitHub Pages for the project. To check out details, please [switch to master branch](https://github.com/vanishedvan/random-value-generator/tree/master).
 
 ## License
