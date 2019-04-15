@@ -29,29 +29,34 @@
 const REPOSITORY_REPRESENTATION = getRepository().representation;
 const BASE_URL = `https://raw.githubusercontent.com/${REPOSITORY_REPRESENTATION}/master/`;
 
-window.onerror = (message, source, lineNumber, columeNumber, error) => console.log(`An error occured, please report this at https://github.com/${REPOSITORY_REPRESENTATION}/issues/new .\n\nFull details, copy and paste into issue description:\n\n${error}`);
+onerror = (message, source, lineNumber, columeNumber, error) => console.log(`An error occured, please report this at https://github.com/${REPOSITORY_REPRESENTATION}/issues/new .\n\nFull details, copy and paste into issue description:\n\n${error}`);
 
-window.onload = () => {
-    createScript().then(setupUserInterface);
+onload = () => {
+    createScript().then(success => {
+        if (success) {
+            setupUserInterface();
+        }
+    });
 };
 
 async function createScript() {
     const showAlert = (url, error) =>
-        alertAndReload(`Demo resource located at ${url} failed to load. Click \"OK\" to refresh the page and retry.\n\n${error}`);
+        alertAndReload(`Demo resource located at ${url} failed to load. Click \"OK\" to retry, or click \"Cancel\" to visit the GitHub repository page.\n\n${error}`);
     const indexURL = `${BASE_URL}index.js`;
     const indexText = await fetchText(indexURL).catch(error => showAlert(indexURL, error));
     if (indexText === undefined) {
-        return;
+        return false;
     }
     const emojiCodePointsURL = `${BASE_URL}emoji-code-points.json`;
     const emojiCodePointsText = await fetchText(emojiCodePointsURL).catch(error => showAlert(emojiCodePointsURL, error));
     if (emojiCodePointsText === undefined) {
-        return;
+        return false;
     }
     const scriptElement = document.createElement("script");
     scriptElement.innerHTML = indexText.replace("require(\"./emoji-code-points.json\")", emojiCodePointsText).replace(/\r/gi, "")
         .replace(/module\.exports\s=\s\{(\n*.\n*)*\};/gi, "").trim();
     document.body.appendChild(scriptElement);
+    return true;
 }
 
 function setupUserInterface() {
@@ -85,12 +90,10 @@ function alertAndReload(reason) {
     if (typeof reason !== "string") {
         throw new TypeError("Incorrect type for alertAndReload argument!");
     }
-    alert(reason);
-    window.location.reload();
+    confirm(reason) ? onload() : location.assign(`https://github.com/${REPOSITORY_REPRESENTATION}`);
 }
 
 function getRepository() {
-    const location = window.location;
     const owner = location.hostname.split(/\./gi)[0];
     const repository = location.pathname.split(/\//gi)[1];
     return {
