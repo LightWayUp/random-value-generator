@@ -27,37 +27,10 @@
 "use strict";
 
 const REPOSITORY_REPRESENTATION = getRepository().representation;
-const BASE_URL = `https://raw.githubusercontent.com/${REPOSITORY_REPRESENTATION}/master/`;
 
 onerror = (message, source, lineNumber, columeNumber, error) => console.log(`An error occured, please report this at https://github.com/${REPOSITORY_REPRESENTATION}/issues/new .\n\nFull details, copy and paste into issue description:\n\n${error}`);
 
-onload = () => {
-    createScript().then(success => {
-        if (success) {
-            setupUserInterface();
-        }
-    });
-};
-
-async function createScript() {
-    const showAlert = (url, error) =>
-        alertAndReload(`Demo resource located at ${url} failed to load. Click \"OK\" to retry, or click \"Cancel\" to visit the GitHub repository page.\n\n${error}`);
-    const indexURL = `${BASE_URL}index.js`;
-    const indexText = await fetchText(indexURL).catch(error => showAlert(indexURL, error));
-    if (indexText === undefined) {
-        return false;
-    }
-    const emojiCodePointsURL = `${BASE_URL}emoji-code-points.json`;
-    const emojiCodePointsText = await fetchText(emojiCodePointsURL).catch(error => showAlert(emojiCodePointsURL, error));
-    if (emojiCodePointsText === undefined) {
-        return false;
-    }
-    const scriptElement = document.createElement("script");
-    scriptElement.innerHTML = indexText.replace("require(\"./emoji-code-points.json\")", emojiCodePointsText).replace(/\r/gi, "")
-        .replace(/module\.exports\s=\s\{(\n*.\n*)*\};/gi, "").trim();
-    document.body.appendChild(scriptElement);
-    return true;
-}
+onload = setupUserInterface;
 
 function setupUserInterface() {
     const findElement = query => {
@@ -69,28 +42,6 @@ function setupUserInterface() {
     };
     findElement(".loading").setAttribute("hidden", "");
     findElement("form[title=\"Demo controls\"]").style.visibility = "visible";
-}
-
-function fetchText(url) {
-    url = url instanceof URL ? url.href : unboxIfBoxed(url);
-    if (typeof url !== "string") {
-        throw new TypeError("Incorrect type for fetchText argument!");
-    }
-    return new Promise((resolve, reject) => fetch(url).then(response => {
-            const statusCode = response.status;
-            if (statusCode !== 200) {
-                return reject(new Error(`Server responded with status code ${statusCode}`));
-            }
-            resolve(response.text());
-        }).catch(error => reject(error)));
-}
-
-function alertAndReload(reason) {
-    reason = reason instanceof Error ? reason.toString() : unboxIfBoxed(reason);
-    if (typeof reason !== "string") {
-        throw new TypeError("Incorrect type for alertAndReload argument!");
-    }
-    confirm(reason) ? onload() : location.assign(`https://github.com/${REPOSITORY_REPRESENTATION}`);
 }
 
 function getRepository() {
