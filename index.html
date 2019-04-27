@@ -42,7 +42,9 @@ SOFTWARE.
         <!-- TODO Remove after website is finished! -->
         <script>
             alert("Sorry, this demo is under construction. Check back later!");
-            location.assign("https://github.com/vanishedvan/random-value-generator");
+            history.length === 1 ?
+                location.assign("https://github.com/vanishedvan/random-value-generator") :
+                history.back();
         </script>
         <!-- TODO Remove after website is finished! -->
         <noscript>
