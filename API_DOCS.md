@@ -2,7 +2,7 @@
 
 ## randomNumber([max])
 
-* `max` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The maximum value of the returned number. Defaults to `1` if not provided or `null`.
+* `max` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The maximum value of the returned number. Defaults to `1`, if not provided or `null`.
 * Returns: [&lt;number&gt;][MDN Number Link] A random number.
 * Throws: [&lt;TypeError&gt;][MDN TypeError Link] Argument `max` must be a number.
 * Throws: [&lt;RangeError&gt;][MDN RangeError Link] Argument `max` must not be `NaN`.
@@ -16,7 +16,7 @@ Get a random number, where:
 
 ## randomInteger([max])
 
-* `max` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The maximum value of the returned integer. Defaults to `2` if not provided or `null`.
+* `max` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The maximum value of the returned integer. Defaults to `2`, if not provided or `null`.
 * Returns: [&lt;number&gt;][MDN Number Link] A random integer.
 * Throws: [&lt;TypeError&gt;][MDN TypeError Link] Argument `max` must be a number.
 * Throws: [&lt;RangeError&gt;][MDN RangeError Link] Argument `max` must not be `NaN`.
@@ -37,7 +37,7 @@ Get a random boolean.
 ## randomString([len][, excludeSpecial])
 
 * `len` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The length of the returned string. Defaults to `1` if not provided or `null`.
-* `excludeSpecial` [&lt;boolean&gt;][MDN Boolean Link] | [&lt;Boolean&gt;][MDN Boolean Link] Whether "special characters" should be excluded or not. Defaults to `false` if not provided or `null`.
+* `excludeSpecial` [&lt;boolean&gt;][MDN Boolean Link] | [&lt;Boolean&gt;][MDN Boolean Link] Whether "special characters" should be excluded or not. Defaults to `false`, if not provided or `null`.
 * Returns: [&lt;string&gt;][MDN String Link] A random string.
 * Throws: [&lt;TypeError&gt;][MDN TypeError Link] Argument `len` must be an integer.
 * Throws: [&lt;TypeError&gt;][MDN TypeError Link] Argument `excludeSpecial` must be a boolean.
@@ -45,13 +45,13 @@ Get a random boolean.
 * Throws: [&lt;RangeError&gt;][MDN RangeError Link] Argument `len` must be finite.
 * Throws: [&lt;RangeError&gt;][MDN RangeError Link] Argument `len` must not be negative.
 
-Get a random string consisting alphanumeric characters, and some additional special characters (`~!@#$%^&()_+-={}[];',.`).
+Get a random string consisting alphanumeric characters, and optionally some additional special characters (`~!@#$%^&()_+-={}[];',.`).
 
 ## randomHash([len])
 
-**Deprecated: Use [`random.randomString()`](#randomstringlen-excludespecial) instead.**
+**Deprecated: Use [`randomString()`](#randomstringlen-excludespecial) instead.**
 
-* `len` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The length of the returned string. Defaults to `1` if not provided or `null`.
+* `len` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The length of the returned string. Defaults to `1`, if not provided or `null`.
 * Returns: [&lt;string&gt;][MDN String Link] A random string consisting alphanumeric characters.
 * Throws: [&lt;TypeError&gt;][MDN TypeError Link] Argument `len` must be an integer.
 * Throws: [&lt;RangeError&gt;][MDN RangeError Link] Argument `len` must not be `NaN`.
@@ -65,8 +65,8 @@ Note: this is not a hashing function despite its name containing the word "hash"
 
 Added in: v0.1.3
 
-* `len` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The number of emojis in the returned string or array. Defaults to `1` if not provided or `null`.
-* `useArray` [&lt;boolean&gt;][MDN Boolean Link] | [&lt;Boolean&gt;][MDN Boolean Link] Whether this function should return a string of concatenated emojis or an array of emojis. Defaults to `false` if not provided or `null`.
+* `len` [&lt;number&gt;][MDN Number Link] | [&lt;Number&gt;][MDN Number Link] The number of emojis in the returned string or array. Defaults to `1`, if not provided or `null`.
+* `useArray` [&lt;boolean&gt;][MDN Boolean Link] | [&lt;Boolean&gt;][MDN Boolean Link] Whether this function should return a string of concatenated emojis or an array of emojis. Defaults to `false`, if not provided or `null`.
 * Returns: [&lt;string&gt;][MDN String Link] One or more random emojis.
 * Throws: [&lt;TypeError&gt;][MDN TypeError Link] Argument `len` must be an integer.
 * Throws: [&lt;TypeError&gt;][MDN TypeError Link] Argument `useArray` must be a boolean.

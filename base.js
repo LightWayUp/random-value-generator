@@ -55,7 +55,7 @@ const ALPHANUMERICS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
  *   0, if max is 0
  *   max < number <= 0, if max is negative
  * @param {number|Number} [max=1] The maximum value of the returned number.
- * Defaults to 1 if not provided or null.
+ * Defaults to 1, if not provided or null.
  * @return {number} A random number.
  * @throws {TypeError} Argument "max" must be a number.
  * @throws {RangeError} Argument "max" must not be NaN.
@@ -85,7 +85,7 @@ function randomNumber(max) {
  *   0, if max is 0
  *   max < number <= 0, if max is negative
  * @param {number|Number} [max=2] The maximum value of the returned integer.
- * Defaults to 2 if not provided or null.
+ * Defaults to 2, if not provided or null.
  * @return {number} A random integer.
  * @throws {TypeError} Argument "max" must be a number.
  * @throws {RangeError} Argument "max" must not be NaN.
@@ -110,7 +110,7 @@ function randomBoolean() {
  * @param {number|Number} [len=1] The length of the returned string.
  * Defaults to 1 if not provided or null.
  * @param {boolean|Boolean} [excludeSpecial=false] Whether "special characters"
- * should be excluded or not. Defaults to false if not provided or null.
+ * should be excluded or not. Defaults to false, if not provided or null.
  * @return {string} A random string.
  * @throws {TypeError} Argument "len" must be an integer.
  * @throws {TypeError} Argument "excludeSpecial" must be a boolean.
@@ -143,7 +143,7 @@ function randomString(len, excludeSpecial) {
  * Get a random string consisting alphanumeric characters.
  * Note: this is not a hashing function despite its name containing the word "hash".
  * @param {number|Number} [len=1] The length of the returned string.
- * Defaults to 1 if not provided or null.
+ * Defaults to 1, if not provided or null.
  * @return {string} A random string consisting alphanumeric characters.
  * @throws {TypeError} Argument "len" must be an integer.
  * @throws {RangeError} Argument "len" must not be NaN.
@@ -161,10 +161,10 @@ function randomHash(len) {
  * correctly on certain platforms, especially those
  * that don't implement Emoji 12.0 standard.
  * @param {number|Number} [len=1] The number of emojis in the returned
- * string or array. Defaults to 1 if not provided or null.
+ * string or array. Defaults to 1, if not provided or null.
  * @param {boolean|Boolean} [useArray=false] Whether this function
  * should return a string of concatenated emojis or an array of emojis.
- * Defaults to false if not provided or null.
+ * Defaults to false, if not provided or null.
  * @return {string} One or more random emojis.
  * @throws {TypeError} Argument "len" must be an integer.
  * @throws {TypeError} Argument "useArray" must be a boolean.
