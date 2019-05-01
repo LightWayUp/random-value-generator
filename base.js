@@ -40,16 +40,6 @@
 /* Code points insertion */
 
 /**
- * A string of characters for use with {@link randomHash}.
- * @ignore
- * @constant {string}
- * @default
- * @readonly
- * @since 0.2.0
- */
-const alphanumerics = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-/**
  * A string of characters for use with {@link randomString}.
  * @ignore
  * @constant {string}
@@ -57,7 +47,7 @@ const alphanumerics = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
  * @readonly
  * @since 0.2.0
  */
-const alphanumericsSpecial = `${alphanumerics}~!@#$%^&()_+-={}[];',.`;
+const ALPHANUMERICS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 /**
  * Get a random number, where:
@@ -115,18 +105,38 @@ function randomBoolean() {
 }
 
 /**
- * Get a random string consisting alphanumeric characters,
- * and some additional special characters (~!@#$%^&()_+-={}[];',.).
+ * Get a random string consisting alphanumeric characters, and
+ * optionally some additional special characters (~!@#$%^&()_+-={}[];',.).
  * @param {number|Number} [len=1] The length of the returned string.
  * Defaults to 1 if not provided or null.
+ * @param {boolean|Boolean} [excludeSpecial=false] Whether
+ * "special characters" should be excluded or not. Defaults to false.
  * @return {string} A random string.
  * @throws {TypeError} Argument "len" must be an integer.
+ * @throws {TypeError} Argument "excludeSpecial" must be a boolean.
  * @throws {RangeError} Argument "len" must not be NaN.
  * @throws {RangeError} Argument "len" must be finite.
  * @throws {RangeError} Argument "len" must not be negative.
  */
-function randomString(len) {
-  return randomStringFromCharacters(alphanumericsSpecial, len);
+function randomString(len, excludeSpecial) {
+  len = unboxIfBoxed(len);
+  excludeSpecial = unboxIfBoxed(excludeSpecial);
+  if (!(excludeSpecial == null || typeof excludeSpecial === "boolean")) {
+    throw new TypeError("excludeSpecial must be a boolean");
+  }
+  if (len == null) {
+    len = 1;
+  } else {
+    if (!Number.isSafeInteger(validateLen(len))) {
+      console.log("len is not a safe integer, precision may be lost");
+    }
+  }
+  const characters = excludeSpecial ? ALPHANUMERICS : `${ALPHANUMERICS}~!@#$%^&()_+-={}[];',.`;
+  let string = "";
+  for (let i = 0; i < len; i++) {
+    string += characters.charAt(randomInteger(characters.length));
+  }
+  return string;
 }
 
 /**
@@ -139,9 +149,11 @@ function randomString(len) {
  * @throws {RangeError} Argument "len" must not be NaN.
  * @throws {RangeError} Argument "len" must be finite.
  * @throws {RangeError} Argument "len" must not be negative.
+ * @deprecated since 0.2.1
  */
 function randomHash(len) {
-  return randomStringFromCharacters(alphanumerics, len);
+  process.emitWarning("random.randomHash is deprecated. Use random.randomString instead.", "DeprecationWarning");
+  return randomString(len, true);
 }
 
 /**
@@ -153,41 +165,6 @@ function randomHash(len) {
 function randomEmoji() {
   return codePoints[randomInteger(codePoints.length)].split(/\s/gi)
     .map(codePointSingle => String.fromCodePoint(Number(`0x${codePointSingle}`))).join("");
-}
-
-/**
- * Internal function to get a random string.
- * @ignore
- * @param {string|String} characters A string of characters
- * to randomly get characters from.
- * @param {number|Number} [len=1] The length of the returned string.
- * Defaults to 1 if not provided or null.
- * @return {string} A random string.
- * @throws {TypeError} Argument "characters" must be a string.
- * @throws {TypeError} Argument "len" must be an integer.
- * @throws {RangeError} Argument "len" must not be NaN.
- * @throws {RangeError} Argument "len" must be finite.
- * @throws {RangeError} Argument "len" must not be negative.
- * @since 0.2.0
- */
-function randomStringFromCharacters(characters, len) {
-  characters = unboxIfBoxed(characters);
-  if (typeof characters !== "string") {
-    throw new TypeError("characters must be a string");
-  }
-  len = unboxIfBoxed(len);
-  if (len == null) {
-    len = 1;
-  } else {
-    if (!Number.isSafeInteger(validateLen(len))) {
-      console.log("len is not a safe integer, precision may be lost");
-    }
-  }
-  let string = "";
-  for (let i = 0; i < len; i++) {
-    string += characters.charAt(randomInteger(characters.length));
-  }
-  return string;
 }
 
 /**
