@@ -157,14 +157,41 @@ function randomHash(len) {
 }
 
 /**
- * Get a random emoji. Some emojis might not display
+ * Get one or more random emojis. Some emojis might not display
  * correctly on certain platforms, especially those
  * that don't implement Emoji 12.0 standard.
+ * @param {number|Number} [len=1] The number of emojis in the returned
+ * string or array. Defaults to 1 if not provided or null.
+ * @param {boolean|Boolean} [useArray=false] Whether this function
+ * should return a string of concatenated emojis or an array of emojis.
+ * Defaults to false.
+ * @return {string} One or more random emojis.
+ * @throws {TypeError} Argument "len" must be an integer.
+ * @throws {TypeError} Argument "useArray" must be a boolean.
+ * @throws {RangeError} Argument "len" must not be NaN.
+ * @throws {RangeError} Argument "len" must be finite.
+ * @throws {RangeError} Argument "len" must not be negative.
  * @since 0.1.3
  */
-function randomEmoji() {
-  return codePoints[randomInteger(codePoints.length)].split(/\s/gi)
-    .map(codePointSingle => String.fromCodePoint(Number(`0x${codePointSingle}`))).join("");
+function randomEmoji(len, useArray) {
+  len = unboxIfBoxed(len);
+  useArray = unboxIfBoxed(useArray);
+  if (!(useArray == null || typeof useArray === "boolean")) {
+    throw new TypeError("useArray must be a boolean");
+  }
+  if (len == null) {
+    len = 1;
+  } else {
+    if (!Number.isSafeInteger(validateLen(len))) {
+      console.log("len is not a safe integer, precision may be lost");
+    }
+  }
+  const result = [];
+  for (let i = 0; i < len; i++) {
+    result.push(codePoints[randomInteger(codePoints.length)].split(/\s/gi)
+      .map(codePointSingle => String.fromCodePoint(Number(`0x${codePointSingle}`))).join(""));
+  }
+  return useArray ? result : result.join("");
 }
 
 /**
