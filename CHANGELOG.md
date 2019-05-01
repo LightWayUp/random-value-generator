@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+* TODO
+
 ## 0.2.0
 
 * Generated a list of emoji code points used by `randomEmoji()`
@@ -39,7 +43,7 @@ Other changes:
 
 ## 0.1.3
 
-* Added function [`randomEmoji()`](/API_DOCS.md#randomemoji)
+* Added function [`randomEmoji()`](/API_DOCS.md#randomemojilen-usearray)
 * Changed `randomHash(len)` behavior to always return a zero-length string
 
 Other changes:

@@ -18,12 +18,11 @@ A simple, zero-dependency package that can generate random\* values.
 - randomNumber(max);
 - randomInteger(max);
 - randomBoolean();
-- randomString(len);
-- randomHash(len);
-- randomEmoji();
+- randomString(len, excludeSpecial);
+- randomEmoji(len, useArray);
 ```
 
-Please note that `max` is the maximum value of the returned number, and `len` is the length of the returned string. Both kinds of parameters **MUST** be numbers.
+See [API documentations](/API_DOCS.md) for more details.
 
 ## For the Web
 
@@ -61,37 +60,30 @@ Defining the module in your code:
 
 [Try the online demo](https://lightwayup.github.io/random-value-generator/).
 
-```
-/**
+<pre><code>/**
  * Logs a random number.
  */
-console.log(random.randomNumber(max));
+console.log(random.randomNumber(2019.0501)); // Sample output: 133.7
 
 /**
  * Logs a random integer.
  */
-console.log(random.randomInteger(max));
+console.log(random.randomInteger(-2019)); // Sample output: -1234
 
 /**
  * Logs a random boolean. - true or false
  */
-console.log(random.randomBoolean());
+console.log(random.randomBoolean()); // Sample output: false
 
 /**
- * Logs a random string consisting alphanumeric and special characters.
+ * Logs a random string consisting alphanumeric and optionally special characters.
  */
-console.log(random.randomString(len));
-
-/**
- * Logs a random string consisting alphanumeric characters.
- */
-console.log(random.randomHash(len));
+console.log(random.randomString(6)); // Sample output: "abc.xyz"
 
 /**
  * Logs a random emoji.
  */
-console.log(random.randomEmoji());
-```
+console.log(random.randomEmoji(3, true)); // Sample output: Array ["&#x1f44c;", "&#x1f602;", "&#x1f44a;"]</code></pre>
 
 ## API Documentations
 

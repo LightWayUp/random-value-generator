@@ -109,8 +109,8 @@ function randomBoolean() {
  * optionally some additional special characters (~!@#$%^&()_+-={}[];',.).
  * @param {number|Number} [len=1] The length of the returned string.
  * Defaults to 1 if not provided or null.
- * @param {boolean|Boolean} [excludeSpecial=false] Whether
- * "special characters" should be excluded or not. Defaults to false.
+ * @param {boolean|Boolean} [excludeSpecial=false] Whether "special characters"
+ * should be excluded or not. Defaults to false if not provided or null.
  * @return {string} A random string.
  * @throws {TypeError} Argument "len" must be an integer.
  * @throws {TypeError} Argument "excludeSpecial" must be a boolean.
@@ -164,7 +164,7 @@ function randomHash(len) {
  * string or array. Defaults to 1 if not provided or null.
  * @param {boolean|Boolean} [useArray=false] Whether this function
  * should return a string of concatenated emojis or an array of emojis.
- * Defaults to false.
+ * Defaults to false if not provided or null.
  * @return {string} One or more random emojis.
  * @throws {TypeError} Argument "len" must be an integer.
  * @throws {TypeError} Argument "useArray" must be a boolean.
